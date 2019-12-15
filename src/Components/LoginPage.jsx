@@ -7,6 +7,7 @@ import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import { signInWithGoogle } from "../firebase";
 const useStyles = makeStyles(theme => ({
   paper: {
     marginTop: theme.spacing(8),
@@ -40,7 +41,11 @@ export default function LoginPage(props) {
         <Typography component="h1" variant="h5">
           Sign in
         </Typography>
-        <form className={classes.form} noValidate>
+        <form
+          className={classes.form}
+          noValidate
+          onClick={e => e.preventDefault()}
+        >
           <TextField
             variant="outlined"
             margin="normal"
@@ -51,7 +56,6 @@ export default function LoginPage(props) {
             name="email"
             autoComplete="email"
             autoFocus
-            onChange={props.handleClick}
           />
           <TextField
             variant="outlined"
@@ -70,6 +74,7 @@ export default function LoginPage(props) {
             variant="contained"
             color="primary"
             className={classes.submit}
+            onClick={signInWithGoogle}
           >
             Sign In
           </Button>
