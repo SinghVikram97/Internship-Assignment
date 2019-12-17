@@ -5,11 +5,14 @@ import "./index.css";
 import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import UserProvider from "./Providers/UserProvider";
+import UserListProvider from "./Providers/UserListProvider";
 
 ReactDOM.render(
   <BrowserRouter>
     <UserProvider>
-      <App />
+      <UserListProvider>
+        <App />
+      </UserListProvider>
     </UserProvider>
   </BrowserRouter>,
   document.getElementById("root")

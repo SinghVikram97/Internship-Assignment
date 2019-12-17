@@ -8,8 +8,6 @@ const Authentication = ({ loading }) => {
   if (loading) {
     return null;
   }
-
-  console.log(user);
   return <div>{user ? <CurrentUser {...user} /> : <SignIn />}</div>;
 };
 export default Authentication;
