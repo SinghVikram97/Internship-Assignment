@@ -170,7 +170,7 @@ export default class UserPage extends Component {
           <Grid>
             <TextField
               id="outlined-helperText"
-              label="First Name"
+              label="Gender"
               defaultValue={`${gender}`}
               margin="normal"
               variant="outlined"

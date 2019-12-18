@@ -1,7 +1,11 @@
 import React, { useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { Link } from "react-router-dom";
 import List from "@material-ui/core/List";
-
+import Grid from "@material-ui/core/Grid";
+import AddIcon from "@material-ui/icons/Add";
+import Fab from "@material-ui/core/Fab";
+import Tooltip from "@material-ui/core/Tooltip";
 import Divider from "@material-ui/core/Divider";
 
 import Container from "@material-ui/core/Container";
@@ -19,6 +23,11 @@ const useStyles = makeStyles(theme => ({
   },
   inline: {
     display: "inline"
+  },
+  absolute: {
+    position: "absolute",
+    bottom: theme.spacing(2),
+    right: theme.spacing(3)
   }
 }));
 
@@ -59,6 +68,17 @@ export default function AlignItemsList() {
       >
         Sign Out
       </Button>
+      <Grid container justify="center">
+        <Grid item>
+          <Tooltip title="Add" placement="top-end">
+            <Fab color="secondary" className={classes.absolute}>
+              <Link to="/add" style={{ color: "white" }}>
+                <AddIcon />
+              </Link>
+            </Fab>
+          </Tooltip>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
