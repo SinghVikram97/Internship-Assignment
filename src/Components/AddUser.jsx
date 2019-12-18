@@ -95,7 +95,7 @@ export default class AddUser extends Component {
         <Grid>
           <TextField
             id="outlined-helperText"
-            label="DOB"
+            label="DOB (MMDDYYYY)"
             margin="normal"
             variant="outlined"
             name="dob"

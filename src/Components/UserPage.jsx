@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { firestore } from "../firebase";
 import { getIDsAndDocs } from "../utilities";
+import { withRouter } from "react-router";
 
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -8,7 +9,7 @@ import Grid from "@material-ui/core/Grid";
 import moment from "moment";
 import Button from "@material-ui/core/Button";
 
-export default class UserPage extends Component {
+class UserPage extends Component {
   state = {
     user: null,
     firstName: "",
@@ -30,28 +31,33 @@ export default class UserPage extends Component {
   unsubscribeFromUsers = null;
   componentDidMount = async () => {
     this.unsubscribeFromUsers = this.userRef.onSnapshot(snapshot => {
-      const user = getIDsAndDocs(snapshot);
-      this.setState({ user: user }, () => {
-        const {
-          firstName,
-          lastName,
-          email,
-          avatar,
-          dob,
-          mobileNumber,
-          gender
-        } = this.state.user;
-        let temp = moment(dob.toDate()).calendar();
-        this.setState({
-          firstName,
-          lastName,
-          email,
-          avatar,
-          dob: temp,
-          mobileNumber,
-          gender
+      if (!snapshot.exists) {
+        return;
+      } else {
+        const user = getIDsAndDocs(snapshot);
+
+        this.setState({ user: user }, () => {
+          const {
+            firstName,
+            lastName,
+            email,
+            avatar,
+            dob,
+            mobileNumber,
+            gender
+          } = this.state.user;
+          let temp = moment(dob.toDate()).calendar();
+          this.setState({
+            firstName,
+            lastName,
+            email,
+            avatar,
+            dob: temp,
+            mobileNumber,
+            gender
+          });
         });
-      });
+      }
     });
   };
 
@@ -84,6 +90,12 @@ export default class UserPage extends Component {
           }, 2500);
         });
       });
+  };
+
+  handleDelete = () => {
+    this.userRef.delete().then(() => {
+      this.props.history.push("/");
+    });
   };
 
   render() {
@@ -187,11 +199,20 @@ export default class UserPage extends Component {
           >
             Save
           </Button>
+          <Button
+            type="submit"
+            variant="contained"
+            color="secondary"
+            onClick={this.handleDelete}
+          >
+            Delete
+          </Button>
           {this.state.isActive ? <p>Saved!</p> : <p></p>}
         </>
       );
     } else {
-      return null;
+      return <h1>User Deleted!</h1>;
     }
   }
 }
+export default withRouter(UserPage);
