@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { makeStyles } from "@material-ui/core/styles";
 import moment from "moment";
 import ListItem from "@material-ui/core/ListItem";
@@ -72,8 +73,11 @@ export default function UserDetails(props) {
           </React.Fragment>
         }
       />
+
       <Fab color="secondary" aria-label="edit" className={classes.fab}>
-        <EditIcon />
+        <Link to={`user/${id}`} style={{ color: "white" }}>
+          <EditIcon />
+        </Link>
       </Fab>
     </ListItem>
   );

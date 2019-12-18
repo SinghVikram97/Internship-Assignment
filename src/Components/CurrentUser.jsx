@@ -34,6 +34,7 @@ export default function AlignItemsList() {
         {userList.map(user => {
           return (
             <UserDetails
+              key={user.id}
               id={user.id}
               firstName={user.firstName}
               lastName={user.lastName}

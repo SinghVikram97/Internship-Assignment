@@ -6,6 +6,7 @@ import App from "./App";
 import * as serviceWorker from "./serviceWorker";
 import UserProvider from "./Providers/UserProvider";
 import UserListProvider from "./Providers/UserListProvider";
+import "cors";
 
 ReactDOM.render(
   <BrowserRouter>
