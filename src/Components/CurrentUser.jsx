@@ -24,14 +24,28 @@ const useStyles = makeStyles(theme => ({
 
 export default function AlignItemsList() {
   const userList = useContext(UserListContext);
-  console.log(userList);
+
   const classes = useStyles();
 
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
       <List className={classes.root}>
-        <UserDetails />
+        {userList.map(user => {
+          return (
+            <UserDetails
+              id={user.id}
+              firstName={user.firstName}
+              lastName={user.lastName}
+              gender={user.gender}
+              email={user.email}
+              dob={user.dob}
+              avatar={user.avatar}
+              mobileNumber={user.mobileNumber}
+            />
+          );
+        })}
+
         <Divider variant="inset" component="li" />
       </List>
       <Button

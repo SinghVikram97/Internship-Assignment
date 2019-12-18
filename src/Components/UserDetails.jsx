@@ -1,14 +1,15 @@
-import React, { useContext } from "react";
+import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-
+import moment from "moment";
 import ListItem from "@material-ui/core/ListItem";
+import Fab from "@material-ui/core/Fab";
+import EditIcon from "@material-ui/icons/Edit";
 
 import ListItemText from "@material-ui/core/ListItemText";
 import ListItemAvatar from "@material-ui/core/ListItemAvatar";
 import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 
-import { UserListContext } from "../Providers/UserListProvider";
 const useStyles = makeStyles(theme => ({
   root: {
     width: "100%",
@@ -18,19 +19,44 @@ const useStyles = makeStyles(theme => ({
   },
   inline: {
     display: "inline"
+  },
+  fab: {
+    margin: theme.spacing(1),
+    height: "2%",
+    width: "12%"
+  },
+  extendedIcon: {
+    marginRight: theme.spacing(1)
   }
 }));
 
-export default function UserDetails() {
+export default function UserDetails(props) {
   const classes = useStyles();
+  const {
+    id,
+    firstName,
+    lastName,
+    email,
+    avatar,
+    dob,
+    mobileNumber,
+    gender
+  } = props;
+  let temp = moment(dob.toDate())
+    .calendar()
+    .split("")
+    .filter(char => char !== "/")
+    .join("");
 
+  let age = moment().diff(moment(temp, "MMDDYYYY"), "years");
   return (
-    <ListItem alignItems="flex-start">
+    <ListItem alignItems="flex-start" key={id}>
       <ListItemAvatar>
-        <Avatar alt="Vikram" src="/static/images/avatar/1.jpg" />
+        <Avatar alt={`${firstName}`} src={avatar} />
       </ListItemAvatar>
+
       <ListItemText
-        primary="Vikram Bedi"
+        primary={`${firstName} ${lastName}`}
         secondary={
           <React.Fragment>
             <Typography
@@ -39,13 +65,16 @@ export default function UserDetails() {
               className={classes.inline}
               color="textPrimary"
             ></Typography>
-            <p>Male</p>
-            <p>18 Years</p>
-            <p>vikram.bedi97@gmail.com</p>
-            <p>9650498659</p>
+            <p>{`${gender}`}</p>
+            <p>{`${age} years`}</p>
+            <p>{`${email}`}</p>
+            <p>{`${mobileNumber}`}</p>
           </React.Fragment>
         }
       />
+      <Fab color="secondary" aria-label="edit" className={classes.fab}>
+        <EditIcon />
+      </Fab>
     </ListItem>
   );
 }
